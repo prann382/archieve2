@@ -1,0 +1,147 @@
+https://www.onlinegdb.com/online_ruby_compiler
+
+
+
+program------------------------
+
+class GuessingGame
+  attr_reader :target_number
+
+  def initialize(min, max)
+    @min = min
+    @max = max
+    @target_number = rand(min..max)
+    @attempts = 0
+    @max_attempts = Math.log2(max - min).to_i + 1
+  end
+
+  def play
+    puts "Welcome to the Guessing Game!"
+    puts "I've picked a number between #{@min} and #{@max}."
+    loop do
+      print "Guess the number: "
+      guess = gets.chomp.to_i
+      @attempts += 1
+      if guess == @target_number
+        puts "Congratulations! You guessed the number #{@target_number} in #{@attempts} attempts."
+        break
+      elsif @attempts >= @max_attempts
+        puts "Sorry, you've used all your attempts. The number was #{@target_number}."
+        break
+      elsif guess < @target_number
+        puts "Too low! Try again."
+      else
+        puts "Too high! Try again."
+      end
+    end
+  end
+end
+
+game = GuessingGame.new(1, 50)
+game.play
+
+-----------------------------------------------------------------------------
+
+
+class RockPaperScissors
+  def initialize
+    @choices = ["rock", "paper", "scissors"]
+  end
+
+  def play
+    puts "Welcome to Rock, Paper, Scissors!"
+    loop do
+      print "Enter your choice (rock, paper, scissors): "
+      player_choice = gets.chomp.downcase
+      unless @choices.include?(player_choice)
+        puts "Invalid choice. Please enter 'rock', 'paper', or 'scissors'."
+        next
+      end
+      computer_choice = @choices.sample
+      puts "Computer chooses: #{computer_choice.capitalize}"
+      determine_winner(player_choice, computer_choice)
+      break unless play_again?
+    end
+  end
+
+  private
+
+  def determine_winner(player_choice, computer_choice)
+    if player_choice == computer_choice
+      puts "It's a tie!"
+    elsif (player_choice == "rock" && computer_choice == "scissors") ||
+          (player_choice == "paper" && computer_choice == "rock") ||
+          (player_choice == "scissors" && computer_choice == "paper")
+      puts "You win!"
+    else
+      puts "Computer wins!"
+    end
+  end
+
+  def play_again?
+    print "Do you want to play again? (yes/no): "
+    answer = gets.chomp.downcase
+    answer == "yes"
+  end
+end
+
+game = RockPaperScissors.new
+game.play
+-------------------------------------------------------------------------------------
+
+
+
+# Get user input for name, age, and email
+print "Enter your name: "
+name = gets.chomp
+
+print "Enter your age: "
+age = gets.chomp.to_i
+
+print "Enter your email: "
+email = gets.chomp
+
+# Display the form details
+puts "\nYour Form Details:"
+puts "Name: #{name}"
+puts "Age: #{age}"
+puts "Email: #{email}"
+
+
+
+------------------------------------------------------------------------------------
+class SimpleCalculator
+  def calculate
+    puts "Welcome to Simple Calculator!"
+    loop do
+      print "Enter your choice (e.g., 'add 2 3' or 'subtract 5 2' or multiply 6 6): "
+      input = gets.chomp
+      break if input.downcase == 'exit'
+
+      parts = input.split(' ')
+      operator = parts[0].downcase
+      num1 = parts[1].to_f
+      num2 = parts[2].to_f
+
+      case operator
+      when 'add'
+        puts "Result: #{num1 + num2}"
+      when 'subtract'
+        puts "Result: #{num1 - num2}"
+      when 'multiply'
+        puts "Result: #{num1 * num2}"   
+      when 'divide'
+        puts "Result: #{num1 / num2}"        
+          
+      else
+        puts "Invalid input. Please use 'add' or 'subtract' followed by two numbers."
+      end
+    end
+    puts "Goodbye!"
+  end
+end
+
+calculator = SimpleCalculator.new
+calculator.calculate
+
+
